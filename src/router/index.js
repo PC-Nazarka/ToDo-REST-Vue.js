@@ -3,7 +3,6 @@ import LogIn from "@/pages/LogIn.vue"
 import SignIn from "@/pages/SignIn.vue"
 import AccountUser from "@/pages/AccountUser.vue"
 import SearchList from "@/pages/SearchList.vue"
-import ChangeEmail from "@/pages/ChangeEmail.vue"
 import EditProfile from "@/pages/EditProfile.vue"
 import ChangePassword from "@/pages/ChangePassword.vue"
 import NewTodos from "@/pages/NewTodos.vue"
@@ -30,11 +29,6 @@ const routes = [
         name: 'AccountUser',
         component: AccountUser,
         children: [
-            {
-                path: '/change/email',
-                name: 'changeEmail',
-                component: ChangeEmail,
-            },
             {
                 path: '/edit/profile',
                 name: 'editProfile',

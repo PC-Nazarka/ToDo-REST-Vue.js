@@ -55,15 +55,13 @@ export default {
         if (response.status === 204) {
           this.$store.commit('setAccess', '')
           this.$store.commit('setRefresh', '')
-          this.$store.commit('setUser', Object)
+          this.$store.commit('setUser', Object())
           await router.push('/')
         }
       } catch (e) {
         alert('Ошибка входа. Повторите попытку')
       }
     }
-  },
-  watch: {
   }
 }
 </script>

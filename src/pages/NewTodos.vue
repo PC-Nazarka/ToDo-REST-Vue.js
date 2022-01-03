@@ -8,7 +8,7 @@
   <div v-else>
     <div class="container">
       <ul class="list-group">
-        <div v-if="this.listPosts">
+        <div v-if="this.listPosts.length">
           <PostItem v-for="post in this.listPosts" :post="post" :key="post.id"></PostItem>
         </div>
         <div v-else>
@@ -50,7 +50,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$store.state.access !== '' && this.$store.state.user !== Object) {
+    if (this.$store.state.access !== '' && this.$store.state.user !== Object()) {
       this.fetchPosts()
     }
   }

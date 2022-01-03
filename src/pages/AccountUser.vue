@@ -4,20 +4,37 @@
     <p>Прежде чем пользоваться сервисом - войдите</p>
   </div>
   <div v-else>
-    <div class="container">
+    <router-view></router-view>
+    <div v-if="this.isAccount" class="container">
       <h1>Информация об аккаунте</h1>
-      <div class="py-1">Имя: {{ this.$store.state.user.first_name }}</div>
-      <div class="py-1">Никнейм: {{ this.$store.state.user.username }}</div>
-      <div class="py-1">Email: {{ this.$store.state.user.email }}</div>
-      <div class="py-1">Дата регистрация: {{ this.$store.state.user.date_joined }}</div>
-      <div class="py-1">Последний раз онлайн: {{ this.$store.state.user.last_login }}</div>
-      <div class="py-2">
-        <button @click="$router.push({name: 'changeEmail'})" class="btn btn-success me-3">Сменить email</button>
-        <button @click="$router.push({name: 'editProfile'})" class="btn btn-success me-3">Редактировать профиль</button>
-        <button @click="$router.push({name: 'changePassword'})" class="btn btn-success">Сменить пароль</button>
+      <div v-if="this.isOwner">
+        <div class="py-1">Никнейм: {{ this.$store.state.user.username }}</div>
+        <div class="py-1">Имя: {{ this.$store.state.user.first_name }}</div>
+        <div class="py-1">Фамилия: {{ this.$store.state.user.last_name }}</div>
+        <div class="py-1">Email: {{ this.$store.state.user.email }}</div>
+        <div class="py-1">Дата регистрация: {{ this.$store.state.user.date_joined }}</div>
+        <div class="py-1">Последний раз онлайн: {{ this.$store.state.user.last_login }}</div>
       </div>
-      <hr>
-      <TodoListPage @update="this.updatePosts"></TodoListPage>
+      <div v-else>
+        <div class="py-1">Никнейм: {{ this.someUser.username }}</div>
+        <div class="py-1">Последний раз онлайн: {{ this.someUser.last_login }}</div>
+      </div>
+      <div v-if="this.isOwner" class="py-2">
+        <button
+            @click="$router.push({name: 'editProfile',
+                                  params: {userId: this.$route.params.userId}
+                                 }); this.isAccount = false"
+            class="btn btn-success me-3">Редактировать профиль</button>
+        <button
+            @click="$router.push({name: 'changePassword',
+                                  params: {userId: this.$route.params.userId}
+                                 }); this.isAccount = false"
+            class="btn btn-success">Сменить пароль</button>
+      </div>
+      <div v-if="this.isOwner">
+        <hr>
+        <TodoListPage @update="this.updatePosts"></TodoListPage>
+      </div>
       <hr>
       <PostUser v-model:update="this.update"></PostUser>
     </div>
@@ -27,24 +44,53 @@
 <script>
 import TodoListPage from "@/components/TodoListPage.vue"
 import PostUser from "@/components/PostUser";
+import axios from "axios";
 
 export default {
   components: {
     TodoListPage,
-    PostUser
+    PostUser,
   },
-  data(){
+  data() {
     return {
-      update: false
+      update: false,
+      isOwner: false,
+      someUser: Object(),
+      isAccount: true
     }
   },
   methods: {
-    updatePosts(bool){
+    updatePosts(bool) {
       this.update = bool
+    },
+    async getInfoOtherUser() {
+      try {
+        await this.$store.dispatch('setAccess')
+        const response = await axios.get(this.$store.state.url + `${this.$route.params.userId}/`,
+            {
+              headers:
+                  {
+                    "Authorization": 'JWT ' + this.$store.state.access
+                  }
+            })
+        this.someUser = response.data
+      } catch (e) {
+        alert('Ошибка получения данных о другом юзере')
+      }
     }
   },
   created() {
-    console.log(this.$route.params)
+    this.isOwner = this.$store.state.user.id == this.$route.params.userId
+    if (!this.isOwner) {
+      this.getInfoOtherUser()
+    }
+  },
+  watch: {
+    '$route'() {
+      if (this.$route.path === `/${this.$store.state.user.id}`) {
+        this.isAccount = true
+      }
+    }
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="py-4">Посты</h1>
-    <div v-if="this.listPosts">
+    <div v-if="this.listPosts.length">
       <PostItem v-for="post in this.listPosts" :post="post" :key="post.id"></PostItem>
     </div>
     <div v-else>
@@ -34,7 +34,7 @@ export default {
     async getPosts() {
       try {
         await this.$store.dispatch('setAccess')
-        const response = await axios.get(this.$store.state.url + `${this.$store.state.user.id}/posts/`,
+        const response = await axios.get(this.$store.state.url + `${this.$route.params.userId}/posts/`,
             {
               headers:
                   {
