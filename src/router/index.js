@@ -5,7 +5,9 @@ import AccountUser from "@/pages/AccountUser.vue"
 import SearchList from "@/pages/SearchList.vue"
 import EditProfile from "@/pages/EditProfile.vue"
 import ChangePassword from "@/pages/ChangePassword.vue"
+import ChangeUsername from "@/pages/ChangeUsername.vue"
 import NewTodos from "@/pages/NewTodos.vue"
+import DeleteAccount from "@/pages/DeleteAccount.vue"
 
 
 const routes = [
@@ -31,14 +33,24 @@ const routes = [
         children: [
             {
                 path: '/edit/profile',
-                name: 'editProfile',
+                name: 'EditProfile',
                 component: EditProfile,
             },
             {
                 path: '/change/password',
-                name: 'changePassword',
+                name: 'ChangePassword',
                 component: ChangePassword,
             },
+            {
+                path: '/change/username',
+                name: 'ChangeUsername',
+                component: ChangeUsername,
+            },
+            {
+                path: '/delete',
+                name: 'DeleteAccount',
+                component: DeleteAccount,
+            }
         ]
     },
     {

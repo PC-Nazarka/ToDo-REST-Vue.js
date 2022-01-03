@@ -54,18 +54,47 @@ export default {
       try {
         const response = await axios.post(this.$store.state.url + "auth/users/",
             {
-              "username": this.username,
-              "password": this.password,
-              "re_password": this.re_password,
-              "first_name": this.first_name,
-              "last_name": this.last_name,
-              "email": this.email
+              username: this.username,
+              password: this.password,
+              re_password: this.re_password,
+              first_name: this.first_name,
+              last_name: this.last_name,
+              email: this.email
             }
         )
         alert("Регистрация прошла успешно. Проверьте почту и активируйте ваш аккаунт")
         await router.push('/')
       } catch (e) {
-        alert("Регистрация провалилась")
+        if (e.response.data.username) {
+          for (let i = 0; i < e.response.data.username.length; i++) {
+            alert(e.response.data.username[i])
+          }
+        }
+        if (e.response.data.password) {
+          for (let i = 0; i < e.response.data.password.length; i++) {
+            alert(e.response.data.password[i])
+          }
+        }
+        if (e.response.data.re_password) {
+          for (let i = 0; i < e.response.data.re_password.length; i++) {
+            alert(e.response.data.re_password[i])
+          }
+        }
+        if (e.response.data.first_name) {
+          for (let i = 0; i < e.response.data.first_name.length; i++) {
+            alert(e.response.data.first_name[i])
+          }
+        }
+        if (e.response.data.last_name) {
+          for (let i = 0; i < e.response.data.last_name.length; i++) {
+            alert(e.response.data.last_name[i])
+          }
+        }
+        if (e.response.data.email) {
+          for (let i = 0; i < e.response.data.email.length; i++) {
+            alert(e.response.data.email[i])
+          }
+        }
       }
     }
   }

@@ -33,8 +33,8 @@ export default {
       try {
         const response = await axios.post(this.$store.state.url + "auth/jwt/create/",
             {
-              "username": this.username,
-              "password": this.password
+              username: this.username,
+              password: this.password
             }
         )
         this.$store.commit('setAccess', response.data.access)
@@ -42,7 +42,16 @@ export default {
         await this.$store.dispatch('setUser')
         await router.push('/')
       } catch (e) {
-        alert('Ошибка входа. Повторите попытку')
+        if (e.response.data.username) {
+          for (let i = 0; i < e.response.data.username.length; i++) {
+            alert(e.response.data.username[i])
+          }
+        }
+        if (e.response.data.password) {
+          for (let i = 0; i < e.response.data.password.length; i++) {
+            alert(e.response.data.password[i])
+          }
+        }
       }
     }
   }

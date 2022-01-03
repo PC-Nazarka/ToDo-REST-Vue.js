@@ -21,15 +21,25 @@
       </div>
       <div v-if="this.isOwner" class="py-2">
         <button
-            @click="$router.push({name: 'editProfile',
+            @click="$router.push({name: 'EditProfile',
                                   params: {userId: this.$route.params.userId}
                                  }); this.isAccount = false"
             class="btn btn-success me-3">Редактировать профиль</button>
         <button
-            @click="$router.push({name: 'changePassword',
+          @click="$router.push({name: 'ChangePassword',
                                   params: {userId: this.$route.params.userId}
                                  }); this.isAccount = false"
-            class="btn btn-success">Сменить пароль</button>
+          class="btn btn-success me-3">Сменить пароль</button>
+        <button
+            @click="$router.push({name: 'ChangeUsername',
+                                  params: {userId: this.$route.params.userId}
+                                 }); this.isAccount = false"
+            class="btn btn-success me-3">Сменить никнейм</button>
+        <button
+            @click="$router.push({name: 'DeleteAccount',
+                                  params: {userId: this.$route.params.userId}
+                                 }); this.isAccount = false"
+            class="btn btn-danger">Удалить аккаунт</button>
       </div>
       <div v-if="this.isOwner">
         <hr>
