@@ -14,4 +14,3 @@ npm run serve
 - Vuex
 
 [Ссылка на backend часть](https://gitlab.com/PC-Nazarka/todo-rest)
-
