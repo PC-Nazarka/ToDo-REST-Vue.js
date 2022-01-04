@@ -57,6 +57,9 @@ export default {
           await this.getComments()
           this.commentText = ''
         } catch (e) {
+          for (let str in e.response.data) {
+            alert(e.response.data[str])
+          }
           alert('Ошибка создания комментария')
         }
       }
@@ -81,6 +84,9 @@ export default {
             })
         this.listComment = response.data
       } catch (e) {
+        for (let str in e.response.data) {
+          alert(e.response.data[str])
+        }
         alert('Ошибка получения комментариев к посту')
       }
     }

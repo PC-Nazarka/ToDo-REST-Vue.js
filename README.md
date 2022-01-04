@@ -1,19 +1,17 @@
-# todo_list
+# Todo App on Vue 3
 
-## Project setup
-```
-npm install
-```
+### Компиляция и запуск тестового серверы
 
-### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Основные библиотеки
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Axios
+- Vue
+- Vue-router
+- Vuex
+
+[Ссылка на backend часть](https://gitlab.com/PC-Nazarka/todo-rest)
+

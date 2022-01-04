@@ -8,20 +8,18 @@ export default createStore({
         access: '',
         refresh: '',
         user: Object,
-        isUpdated: false
     },
     mutations: {
         setAccess(state, access) {
             state.access = access
+            localStorage.setItem('access', access)
         },
         setRefresh(state, refresh) {
             state.refresh = refresh
+            localStorage.setItem('refresh', refresh)
         },
         setUser(state, user) {
             state.user = user
-        },
-        setIsUpdated(state, bool) {
-            state.isUpdated = bool
         }
     },
     getters: {
@@ -36,13 +34,14 @@ export default createStore({
         },
         getUser(state) {
             return state.user
-        },
-        getIsUpdated(state) {
-            return state.isUpdated
         }
     },
     actions: {
         async setUser({commit, state}) {
+            if (state.access === '') {
+                commit('setRefresh', localStorage.refresh)
+                commit('setAccess', localStorage.access)
+            }
             try {
                 const response = await axios.get(state.url + "auth/users/me/",
                     {
@@ -57,23 +56,27 @@ export default createStore({
             }
         },
         async setAccess({commit, state}) {
-            if (state.access !== '') {
-                try {
-                    const response = await axios.post(state.url + "auth/jwt/verify/",
-                        {
-                            token: state.access
-                        })
-                } catch (error) {
-                    if (error.response.status === 401) {
-                        try {
-                            const response_refresh = await axios.post(state.url + "auth/jwt/refresh/",
-                                {
-                                    refresh: state.refresh
-                                })
-                            commit('setAccess', response_refresh.data.access)
-                        } catch (e) {
-                            alert('Ошибка получения нового токена')
-                        }
+            if (state.access === '') {
+                commit('setRefresh', localStorage.refresh)
+                commit('setAccess', localStorage.access)
+            }
+            try {
+                const response = await axios.post(state.url + "auth/jwt/verify/",
+                    {
+                        token: state.access
+                    })
+            } catch (error) {
+                if (error.response.status === 401) {
+                    try {
+                        const response_refresh = await axios.post(state.url + "auth/jwt/refresh/",
+                            {
+                                refresh: state.refresh
+                            })
+                        commit('setAccess', response_refresh.data.access)
+                    } catch (e) {
+                        commit('setRefresh', '')
+                        commit('setAccess', '')
+                        await router.push('/')
                     }
                 }
             }

@@ -42,16 +42,7 @@ export default {
         await this.$store.dispatch('setUser')
         await router.push('/')
       } catch (e) {
-        if (e.response.data.username) {
-          for (let i = 0; i < e.response.data.username.length; i++) {
-            alert(e.response.data.username[i])
-          }
-        }
-        if (e.response.data.password) {
-          for (let i = 0; i < e.response.data.password.length; i++) {
-            alert(e.response.data.password[i])
-          }
-        }
+        alert('Ошибка логина')
       }
     }
   }

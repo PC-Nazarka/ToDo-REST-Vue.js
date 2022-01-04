@@ -56,23 +56,14 @@ export default {
           await this.$store.dispatch('setUser')
           await router.push(`/${this.$store.state.user.id}`)
         } catch (e) {
-          if (e.response.data.first_name) {
-            for (let i = 0; i < e.response.data.first_name.length; i++) {
-              alert(e.response.data.first_name[i])
-            }
-          }
-          if (e.response.data.last_name) {
-            for (let i = 0; i < e.response.data.last_name.length; i++) {
-              alert(e.response.data.last_name[i])
-            }
-          }
-          if (e.response.data.email) {
-            for (let i = 0; i < e.response.data.email.length; i++) {
-              alert(e.response.data.email[i])
-            }
-          }
+          alert('Ошибка смены данных')
         }
       }
+    }
+  },
+  created() {
+    if (this.$store.state.access === '') {
+      router.push('/')
     }
   }
 }

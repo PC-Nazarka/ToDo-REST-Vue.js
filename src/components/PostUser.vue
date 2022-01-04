@@ -43,6 +43,9 @@ export default {
             })
         this.listPosts = response.data
       } catch (e) {
+        for (let str in e.response.data) {
+          alert(e.response.data[str])
+        }
         alert('Ошибка')
       }
     }

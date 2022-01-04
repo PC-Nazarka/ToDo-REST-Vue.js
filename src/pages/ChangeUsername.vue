@@ -54,23 +54,14 @@ export default {
           await this.$store.dispatch('setUser')
           await router.push(`/${this.$store.state.user.id}`)
         } catch (e) {
-          if (e.response.data.new_username) {
-            for (let i = 0; i < e.response.data.new_username.length; i++) {
-              alert(e.response.data.new_username[i])
-            }
-          }
-          if (e.response.data.re_new_username) {
-            for (let i = 0; i < e.response.data.re_new_username.length; i++) {
-              alert(e.response.data.re_new_username[i])
-            }
-          }
-          if (e.response.data.current_password) {
-            for (let i = 0; i < e.response.data.current_password.length; i++) {
-              alert(e.response.data.current_password[i])
-            }
-          }
+          alert('Ошибка смены никнейма')
         }
       }
+    }
+  },
+  created() {
+    if (this.$store.state.access === '') {
+      router.push('/')
     }
   }
 }

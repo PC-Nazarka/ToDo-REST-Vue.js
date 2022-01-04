@@ -1,18 +1,9 @@
 <template>
   <div class="container-fluid bg-dark">
     <nav class="navbar navbar-expand-lg navbar-dark">
-      <div class="container d-flex justify-content-around">
+      <div class="container d-flex justify-content-space">
         <div>
           <button @click="$router.push('/')" class="btn navbar-brand">TODO LIST</button>
-        </div>
-        <div class="collapse d-flex justify-content-around navbar-collapse search-line" id="navbarSupportedContent">
-          <form class="d-flex search-row">
-            <input class="form-control me-2 search" type="search" placeholder="Поиск..." aria-label="Search"
-                   :readonly="this.$store.state.access === ''">
-            <button @click="$router.push({name: 'SearchList'})" class="btn btn-outline-success"
-                    :disabled="this.$store.state.access === ''" type="submit">Поиск
-            </button>
-          </form>
         </div>
         <div v-if="this.$store.state.access === ''">
           <button @click="$router.push({name: 'SignIn'})" class="btn btn-success button">Регистрация</button>
@@ -56,10 +47,21 @@ export default {
           this.$store.commit('setAccess', '')
           this.$store.commit('setRefresh', '')
           this.$store.commit('setUser', Object())
+          localStorage.clear()
           await router.push('/')
         }
       } catch (e) {
         alert('Ошибка входа. Повторите попытку')
+        for (let str in e.response.data) {
+          alert(e.response.data[str])
+        }
+      }
+    }
+  },
+  watch: {
+    '$route'() {
+      if (this.$store.state.access) {
+        this.$store.dispatch('setUser')
       }
     }
   }
@@ -67,15 +69,7 @@ export default {
 </script>
 
 <style scoped>
-input.search {
-  min-width: 500px;
-}
-
 .button {
   margin-right: 10px;
-}
-
-.search-row {
-  padding: 10px 0px;
 }
 </style>

@@ -2,7 +2,6 @@ import {createRouter, createWebHistory} from 'vue-router'
 import LogIn from "@/pages/LogIn.vue"
 import SignIn from "@/pages/SignIn.vue"
 import AccountUser from "@/pages/AccountUser.vue"
-import SearchList from "@/pages/SearchList.vue"
 import EditProfile from "@/pages/EditProfile.vue"
 import ChangePassword from "@/pages/ChangePassword.vue"
 import ChangeUsername from "@/pages/ChangeUsername.vue"
@@ -52,11 +51,6 @@ const routes = [
                 component: DeleteAccount,
             }
         ]
-    },
-    {
-        path: '/search',
-        name: 'SearchList',
-        component: SearchList
     },
     {
         path: '/wall',

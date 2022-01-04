@@ -24,22 +24,26 @@
             @click="$router.push({name: 'EditProfile',
                                   params: {userId: this.$route.params.userId}
                                  }); this.isAccount = false"
-            class="btn btn-success me-3">Редактировать профиль</button>
+            class="btn btn-success me-3">Редактировать профиль
+        </button>
         <button
-          @click="$router.push({name: 'ChangePassword',
+            @click="$router.push({name: 'ChangePassword',
                                   params: {userId: this.$route.params.userId}
                                  }); this.isAccount = false"
-          class="btn btn-success me-3">Сменить пароль</button>
+            class="btn btn-success me-3">Сменить пароль
+        </button>
         <button
             @click="$router.push({name: 'ChangeUsername',
                                   params: {userId: this.$route.params.userId}
                                  }); this.isAccount = false"
-            class="btn btn-success me-3">Сменить никнейм</button>
+            class="btn btn-success me-3">Сменить никнейм
+        </button>
         <button
             @click="$router.push({name: 'DeleteAccount',
                                   params: {userId: this.$route.params.userId}
                                  }); this.isAccount = false"
-            class="btn btn-danger">Удалить аккаунт</button>
+            class="btn btn-danger">Удалить аккаунт
+        </button>
       </div>
       <div v-if="this.isOwner">
         <hr>
@@ -55,6 +59,7 @@
 import TodoListPage from "@/components/TodoListPage.vue"
 import PostUser from "@/components/PostUser";
 import axios from "axios";
+import router from "../router";
 
 export default {
   components: {
@@ -73,10 +78,16 @@ export default {
     updatePosts(bool) {
       this.update = bool
     },
+    checkOwner() {
+      this.isOwner = this.$store.state.user.id === parseInt(this.$route.params.userId)
+      if (!this.isOwner) {
+        this.getInfoOtherUser()
+      }
+    },
     async getInfoOtherUser() {
       try {
         await this.$store.dispatch('setAccess')
-        const response = await axios.get(this.$store.state.url + `${this.$route.params.userId}/`,
+        const response = await axios.get(this.$store.state.url + `user/${this.$route.params.userId}/`,
             {
               headers:
                   {
@@ -90,9 +101,17 @@ export default {
     }
   },
   created() {
-    this.isOwner = this.$store.state.user.id == this.$route.params.userId
-    if (!this.isOwner) {
-      this.getInfoOtherUser()
+    if (this.$store.state.access !== '') {
+      if (this.$store.state.user.id === undefined) {
+        this.$store.dispatch('setUser')
+        setTimeout(() => {
+          this.checkOwner();
+        }, 100);
+      } else {
+        this.checkOwner();
+      }
+    } else {
+      router.push('/')
     }
   },
   watch: {

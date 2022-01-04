@@ -44,13 +44,14 @@ export default {
         this.$store.commit('setUser', Object())
         await router.push('/')
       } catch (e) {
-        if (e.response.data.current_password) {
-          for (let i = 0; i < e.response.data.current_password.length; i++) {
-            alert(e.response.data.current_password[i])
-          }
-        }
+        alert('Ошибка удаление аккаунта')
       }
     },
+  },
+  created() {
+    if (this.$store.state.access === '') {
+      router.push('/')
+    }
   }
 }
 </script>

@@ -62,22 +62,13 @@ export default {
           alert('Пароли не совпадают')
         }
       } catch (e) {
-        if (e.response.data.new_password) {
-          for (let i = 0; i < e.response.data.new_password.length; i++) {
-            alert(e.response.data.new_password[i])
-          }
-        }
-        if (e.response.data.re_new_password) {
-          for (let i = 0; i < e.response.data.re_new_password.length; i++) {
-            alert(e.response.data.re_new_password[i])
-          }
-        }
-        if (e.response.data.current_password) {
-          for (let i = 0; i < e.response.data.current_password.length; i++) {
-            alert(e.response.data.current_password[i])
-          }
-        }
+        alert('Ошибка смены пароля')
       }
+    }
+  },
+  created() {
+    if (this.$store.state.access === '') {
+      router.push('/')
     }
   }
 }

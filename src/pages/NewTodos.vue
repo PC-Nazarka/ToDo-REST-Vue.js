@@ -22,6 +22,7 @@
 <script>
 import PostItem from "@/components/PostItem.vue"
 import axios from "axios";
+import router from "../router";
 
 export default {
   components: {
@@ -36,6 +37,8 @@ export default {
     async fetchPosts() {
       try {
         await this.$store.dispatch('setAccess')
+        await this.$store.dispatch('setUser')
+        console.log(localStorage)
         const response = await axios.get(this.$store.state.url + `wall/`,
             {
               headers:
@@ -45,13 +48,18 @@ export default {
             })
         this.listPosts = response.data
       } catch (e) {
-        alert('Ошибка')
+        alert('Ошибка загрузки новых постов')
       }
     }
   },
   mounted() {
     if (this.$store.state.access !== '' && this.$store.state.user !== Object()) {
       this.fetchPosts()
+    }
+  },
+  created() {
+    if (this.$store.state.access === '') {
+      router.push('/')
     }
   }
 }
