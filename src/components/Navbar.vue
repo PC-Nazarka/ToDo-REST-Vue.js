@@ -51,10 +51,7 @@ export default {
           await router.push('/')
         }
       } catch (e) {
-        alert('Ошибка входа. Повторите попытку')
-        for (let str in e.response.data) {
-          alert(e.response.data[str])
-        }
+        alert('Ошибка выхода')
       }
     }
   },
