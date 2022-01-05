@@ -87,7 +87,7 @@ export default {
     async getInfoOtherUser() {
       try {
         await this.$store.dispatch('setAccess')
-        const response = await axios.get(this.$store.state.url + `users/${this.$route.params.userId}/`,
+        const response = await axios.get(this.$store.state.url + `${this.$route.params.userId}/user/`,
             {
               headers:
                   {
