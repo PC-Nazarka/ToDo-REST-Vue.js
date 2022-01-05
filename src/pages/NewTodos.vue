@@ -38,7 +38,6 @@ export default {
       try {
         await this.$store.dispatch('setAccess')
         await this.$store.dispatch('setUser')
-        console.log(localStorage)
         const response = await axios.get(this.$store.state.url + `wall/`,
             {
               headers:
