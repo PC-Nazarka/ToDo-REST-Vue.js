@@ -9,15 +9,7 @@
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Никнейм</label>
-        <input v-model="this.username" type="name" class="form-control" id="exampleInputUsername">
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Имя</label>
-        <input v-model="this.first_name" type="name" class="form-control" id="exampleInputFirstName">
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Фамилия</label>
-        <input v-model="this.last_name" type="name" class="form-control" id="exampleInputLastName">
+        <input v-model="this.username" type="text" class="form-control" id="exampleInputUsername">
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Пароль</label>
@@ -42,8 +34,6 @@ export default {
     return {
       email: '',
       username: '',
-      first_name: '',
-      last_name: '',
       password: '',
       re_password: ''
     }
@@ -57,12 +47,10 @@ export default {
               username: this.username,
               password: this.password,
               re_password: this.re_password,
-              first_name: this.first_name,
-              last_name: this.last_name,
               email: this.email
             }
         )
-        alert("Регистрация прошла успешно.")
+        alert("Для завершения регистрации пройдите по ссылке, присланной вам на указанный email")
         await router.push('/')
       } catch (e) {
         alert('Ошибка регистрации')
@@ -71,7 +59,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

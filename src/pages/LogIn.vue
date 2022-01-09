@@ -11,7 +11,8 @@
         <label for="exampleInputPassword1" class="form-label">Пароль</label>
         <input type="password" class="form-control" v-model="password" id="exampleInputPassword1">
       </div>
-      <button @click="this.fetchTokens" type="submit" class="btn btn-primary">Войти</button>
+      <button @click="this.fetchTokens" type="submit" class="btn btn-primary me-3">Войти</button>
+      <button @click="$router.push({name: 'ResetPasswordEmail'})" class="btn btn-primary">Забыли пароль?</button>
     </form>
   </div>
 </template>

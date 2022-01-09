@@ -22,7 +22,7 @@
         at {{ post.date_time }}
       </p>
     </div>
-    <CommentBlock :id="this.post.id"></CommentBlock>
+    <comment-block :id="this.post.id"></comment-block>
   </div>
 </template>
 
