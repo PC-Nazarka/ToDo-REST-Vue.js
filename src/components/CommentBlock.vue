@@ -6,7 +6,7 @@
       </button>
     </p>
     <div v-if="this.showComment">
-      <CommentItem v-for="comment in this.listComment" :comment="comment" :key="comment.id"></CommentItem>
+      <comment-item v-for="comment in this.listComment" :comment="comment" :key="comment.id"></comment-item>
     </div>
     <form class="row">
       <div class="input-group mb-3">

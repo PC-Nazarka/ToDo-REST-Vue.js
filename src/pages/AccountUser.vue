@@ -47,10 +47,10 @@
       </div>
       <div v-if="this.isOwner">
         <hr>
-        <TodoListPage @update="this.updatePosts"></TodoListPage>
+        <todo-list-page @update="this.updatePosts"></todo-list-page>
       </div>
       <hr>
-      <PostUser v-model:update="this.update"></PostUser>
+      <post-user v-model:update="this.update"></post-user>
     </div>
   </div>
 </template>
@@ -64,7 +64,7 @@ import router from "../router";
 export default {
   components: {
     TodoListPage,
-    PostUser,
+    PostUser
   },
   data() {
     return {
@@ -96,11 +96,12 @@ export default {
             })
         this.someUser = response.data
       } catch (e) {
-        alert('Ошибка получения данных о другом юзере')
+        await router.push('/404')
       }
     }
   },
   created() {
+    this.$store.dispatch('setAccess')
     if (this.$store.state.access !== '') {
       if (this.$store.state.user.id === undefined) {
         this.$store.dispatch('setUser')

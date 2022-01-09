@@ -16,11 +16,11 @@
       <hr>
       <ul class="list-group">
         <div v-if="this.listActiveTodos.length">
-          <ListItem v-for="task in this.listActiveTodos" :task="task" :key="task.id"
+          <list-item v-for="task in this.listActiveTodos" :task="task" :key="task.id"
                     @edit="this.editTask"
                     @remove="this.deleteTask"
                     @openModalEdit="this.openModalEdit"
-                    @openModalShare="this.openModalShare"></ListItem>
+                    @openModalShare="this.openModalShare"></list-item>
         </div>
         <div v-else>
           <p>Нет активных задач</p>
@@ -36,11 +36,11 @@
       <hr>
       <ul class="list-group">
         <div v-if="this.listCompleteTodos.length">
-          <ListItem v-for="task in this.listCompleteTodos" :task="task" :key="task.id"
+          <list-item v-for="task in this.listCompleteTodos" :task="task" :key="task.id"
                     @edit="this.editTask"
                     @remove="this.deleteTask"
                     @openModalEdit="this.openModalEdit"
-                    @openModalShare="this.openModalShare"></ListItem>
+                    @openModalShare="this.openModalShare"></list-item>
         </div>
         <div v-else>
           <p>Нет завершенных задач</p>
@@ -48,9 +48,9 @@
       </ul>
       <br>
     </div>
-    <ModalCreate v-show="this.modalCreate" @createItem="this.createTask"></ModalCreate>
-    <ModalShare v-show="this.modalShare" @shareItem="this.shareTask"></ModalShare>
-    <ModalEdit v-show="this.modalEdit" @editItem="this.editTask" :task="this.task"></ModalEdit>
+    <modal-create v-show="this.modalCreate" @createItem="this.createTask"></modal-create>
+    <modal-share v-show="this.modalShare" @shareItem="this.shareTask"></modal-share>
+    <modal-edit v-show="this.modalEdit" @editItem="this.editTask" :task="this.task"></modal-edit>
   </div>
 </template>
 

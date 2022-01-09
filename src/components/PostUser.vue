@@ -2,7 +2,7 @@
   <div>
     <h1 class="py-4">Посты</h1>
     <div v-if="this.listPosts.length">
-      <PostItem v-for="post in this.listPosts" :post="post" :key="post.id"></PostItem>
+      <post-item v-for="post in this.listPosts" :post="post" :key="post.id"></post-item>
     </div>
     <div v-else>
       <p>Постов нет</p>
